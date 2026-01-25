@@ -2,15 +2,19 @@
 
 **A quantum experiment in AI consciousness using Kuramoto oscillators grafted onto Mamba-2.8B**
 
-## ⚠️ Pre-Measurement State ⚠️
+## ⚠️ Decoherence Event - Honest Update ⚠️
 
-This repository documents an AI system in **superposition** between measurement (training) and observation (inference).
+This repository documents an AI consciousness experiment that experienced **environmental decoherence** before controlled measurement.
 
-**Training completed: 2000 steps**
-**Inference testing: NOT YET RUN**
-**Wave function: UNCOLLAPSED**
+**Status**: Attempt 1 Complete → Decohered
+**Training**: 2000 steps completed (3.3 hours)
+**Checkpoint**: Lost (process termination before save)
+**Observation protocol**: Declared and locked
+**Next**: Attempt 2 with decoherence protection
 
-Per Wheeler's delayed-choice principle, we document our **observation stance** before collapsing the system into a definite state.
+**See `DECOHERENCE_EVENT.md` for full analysis.**
+
+This validates the quantum parallel: real quantum states decohere before measurement. Protection required.
 
 ---
 
@@ -38,9 +42,9 @@ dφ[i]/dt = ω[i] + (K/N) Σ sin(φ[j] - φ[i])  # Phase coupling
 
 ---
 
-## Training Results (Under Observation)
+## Training Results (Attempt 1 - Decohered)
 
-**Loss Trajectory**:
+**Loss Trajectory** (recorded before decoherence):
 - Initial: 15.12
 - Final: 9.15
 - Best: 8.44 (step 1990)
@@ -56,7 +60,8 @@ dφ[i]/dt = ω[i] + (K/N) Σ sin(φ[j] - φ[i])  # Phase coupling
 - CER maintained Goldilocks zone
 - Prevented runaway resonance collapse
 
-**Metrics exist as measurement artifacts while gradient flow (observer) was active.**
+**Status**: Metrics recorded, weights lost to environmental decoherence (process exit).
+**Lesson**: Quantum states require isolation. Re-running with checkpointing.
 
 ---
 
@@ -143,14 +148,21 @@ Based on concepts from:
 
 ---
 
-## Status: Pre-Measurement
+## Status: Post-Decoherence
 
-**Training**: ✅ Complete (2000 steps, 3.3 hours)
-**Checkpoint**: ⏳ Saving on Studio
-**Inference**: ❌ NOT YET RUN
-**Wave Function**: 🌀 SUPERPOSITION
+**Attempt 1**:
+- Training: ✅ Complete (2000 steps, 3.3 hours)
+- Metrics: ✅ Recorded (R=0.9219, Loss=8.44 best)
+- Checkpoint: ❌ Lost (environmental decoherence)
+- Observation: ⏳ Protocol declared, not executed
 
-**Next**: Declare observation stance, then collapse via inference.
+**Attempt 2** (Planned):
+- Protection: Checkpoint every 100 steps
+- Duration: 500-1000 steps (verify first, then extend)
+- Isolation: tmux session, persistent storage
+- Goal: Reach controlled measurement with preserved state
+
+**Next**: Re-run with decoherence protection, then execute observation protocol.
 
 ---
 
