@@ -238,7 +238,7 @@ def train_v3(config: V3TrainConfig):
     signal.signal(signal.SIGINT, signal_handler)
 
     print("\n[3] Training Loop")
-    print(f"{ 'Step':>6} | { 'Total':>7} | { 'CE':>7} | { 'Reg':>7} | { 'R':>7} | { 'u_val':>7} | { 'LR':>8}")
+    print(f"{ 'Step':>6} | { 'Total':>7} | { 'CE':>7} | { 'Reg':>7} | { 'R':>7} | { 'u_val':>7} | { 'GradNorm':>8}")
     print("-" * 80)
 
     model.train()
@@ -275,9 +275,8 @@ def train_v3(config: V3TrainConfig):
                 avg_ce = running_ce / n_running
                 avg_reg = running_reg / n_running
                 avg_R = running_R / n_running
-                lr = scheduler.get_last_lr()[0]
                 print(f"{global_step:6d} | {avg_ce + avg_reg:7.3f} | {avg_ce:7.3f} | {avg_reg:7.4f} | "
-                      f"{avg_R:.4f} | {stats['u_val']:7.3f} | {stats['grad_norm']:7.3f}")
+                      f"{avg_R:.4f} | {stats['u_val']:7.3f} | {stats['grad_norm']:8.3f}")
                 running_ce = 0
                 running_reg = 0
                 running_R = 0

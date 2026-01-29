@@ -25,8 +25,14 @@ wheels/
 *.bin
 *.ckpt
 *.npz
+*.pt
 models/
 checkpoints/
+checkpoints_*/
+results/*/best_model.pt
+results/*/checkpoints/
+kssm/results/*/best_model.pt
+kssm/results/*/checkpoints/
 
 # Logs
 *.log
@@ -54,3 +60,16 @@ Thumbs.db
 tmp/
 temp/
 .cache/
+
+# Data files
+*.npy
+data/processed/
+data/raw/
+data/cache*/
+kssm/data/processed/
+kssm/data/raw/
+kssm/data/cache*/
+
+# Corpus files (large text collections)
+*.jsonl
+*_corpus.json
