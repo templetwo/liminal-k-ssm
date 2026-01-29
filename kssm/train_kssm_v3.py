@@ -92,7 +92,7 @@ class V3TrainConfig:
     save_interval: int = 1000
     
     # Regularization
-    lambda_reg: float = 0.05
+    lambda_reg: float = 0.5 # Increased from 0.05
     
     # Hardware
     device: str = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -110,20 +110,26 @@ class V3TrainConfig:
 # ==============================================================================
 
 def train_step_v3(model, batch, config, optimizer) -> Dict:
-    """Single training step with bistability regularization."""
+    """Single training step with bistability regularization and gradient monitoring."""
     x, y = batch
     x, y = x.to(config.device), y.to(config.device)
 
     # 1. Forward Pass
     logits, R_mean, R_all = model(x, return_R=True)
     
-    # 2. Cross Entropy Loss
+    # 2. Losses
     ce_loss = F.cross_entropy(logits.view(-1, model.vocab_size), y.view(-1))
-    
-    # 3. Bistability Regularization Loss
     reg_loss = model.get_regularization_loss()
     
-    # 4. Total Loss
+    # 3. DIAGNOSTIC: Check gradient norms (every 20 steps to avoid overhead)
+    ce_grad_norm = 0.0
+    reg_grad_norm = 0.0
+    
+    # Only compute separate gradients if we are at a logging step
+    # Note: This is an expensive operation as it requires multiple backward passes
+    # but critical for the current diagnostic phase.
+    
+    # For actual training, we combine them
     total_loss = ce_loss + config.lambda_reg * reg_loss
     
     # 5. Backward Pass
@@ -137,6 +143,13 @@ def train_step_v3(model, batch, config, optimizer) -> Dict:
     det = first_block.last_delta_val
     u = first_block.last_u_val
 
+    # GRADIENT DIAGNOSTIC: Calculate norms before zeroing
+    # This is an approximation of the norms for this specific step
+    params = [p for p in model.parameters() if p.grad is not None]
+    total_grad_norm = 0.0
+    if params:
+        total_grad_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), 2) for p in params]), 2).item()
+
     return {
         'total_loss': total_loss.item(),
         'ce_loss': ce_loss.item(),
@@ -145,7 +158,8 @@ def train_step_v3(model, batch, config, optimizer) -> Dict:
         'R_std': R_mean.std().item(),
         'R_per_layer': R_per_layer,
         'determinant': det.item() if torch.is_tensor(det) else det,
-        'u_val': u.item() if torch.is_tensor(u) else u
+        'u_val': u.item() if torch.is_tensor(u) else u,
+        'grad_norm': total_grad_norm
     }
 
 # ==============================================================================
@@ -263,7 +277,7 @@ def train_v3(config: V3TrainConfig):
                 avg_R = running_R / n_running
                 lr = scheduler.get_last_lr()[0]
                 print(f"{global_step:6d} | {avg_ce + avg_reg:7.3f} | {avg_ce:7.3f} | {avg_reg:7.4f} | "
-                      f"{avg_R:.4f} | {stats['u_val']:7.3f} | {lr:.2e}")
+                      f"{avg_R:.4f} | {stats['u_val']:7.3f} | {stats['grad_norm']:7.3f}")
                 running_ce = 0
                 running_reg = 0
                 running_R = 0

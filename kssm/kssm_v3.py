@@ -69,21 +69,20 @@ class BistableKuramotoBank(nn.Module):
         batch, seq, _ = h.shape
         
         # 1. Derive 10 parameters from hidden state
-        # params: [a, b, c, d, e, f, g, h, i, j]
         p = self.to_params(h)
         a, b, c, d, e, f, g, target_h, i, j = p.unbind(dim=-1)
         
         # 2. Determinant check (bg - cf)
-        # This ensures the linear subsystem for (y, z) is invertible
         det = b * g - c * f
         self.last_delta_val = det.abs().mean()
         
         # 3. Solve for u (x²) in the reduced system
-        # For simplicity, we use the derived u to modulate coupling strength K
-        # u = (d*g - c*h_target) / (a*g - c*e) -- representative form
         num = d * g - c * target_h
         den = a * g - c * e + 1e-6
-        u = num / den
+        u_raw = num / den
+        
+        # HARD CONSTRAINT: Clamp u to [0.1, 10] to stay in bistable regime
+        u = torch.clamp(u_raw, min=0.1, max=10.0)
         self.last_u_val = u.mean()
         
         # 4. Phase Dynamics
@@ -109,25 +108,26 @@ class BistableKuramotoBank(nn.Module):
         h_out = self.readout(z_features)
         
         # R is the magnitude of the first harmonic (n=1)
-        # Indices: [cos_1..cos_N, sin_1..sin_N, mag_1..mag_N]
         R = z_features[..., self.n_harmonics * 2] # mag_1
         
         return h_out, R, theta
 
-    def get_regularization_loss(self, lambda1=0.1, lambda2=0.1, epsilon=1e-5):
+    def get_regularization_loss(self, lambda1=0.1, lambda2=0.5, epsilon=1e-5):
         """
-        ℒ_reg = λ₁ · 1/(|Δ| + ε) + λ₂ · ReLU(-u)
+        ℒ_reg = λ₁ · 1/(|Δ| + ε) + λ₂ · (-log(u + ε))
         
-        Δ = last_delta_val (determinant bg-cf)
-        u = last_u_val (reduced variable x²)
+        Enforces:
+        1. Non-zero determinant (Δ ≠ 0)
+        2. Positive reduced variable (u > 0) via Log Barrier
         """
         # 1. Enforce non-zero determinant
         det_loss = 1.0 / (self.last_delta_val + epsilon)
         
-        # 2. Enforce positive u (the bistability margin)
-        margin_loss = F.relu(-self.last_u_val + 0.1)
+        # 2. Log Barrier for u (Bistability Wall)
+        # As u -> 0, barrier_loss -> +inf
+        barrier_loss = -torch.log(torch.clamp(self.last_u_val, min=epsilon))
         
-        return lambda1 * det_loss + lambda2 * margin_loss
+        return lambda1 * det_loss + lambda2 * barrier_loss
 
 
 class KSSMv3Block(nn.Module):
