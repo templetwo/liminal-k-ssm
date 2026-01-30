@@ -10,7 +10,7 @@
 
 ```bash
 # Simple tail (no explanations)
-ssh tony_studio@192.168.1.195 "tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -f ~/liminal-k-ssm/results/kssm_v3/training.log"
 
 # Full dashboard with explanations (recommended)
 ./kssm/monitor_remote.sh
@@ -132,7 +132,7 @@ PATTERN ANALYSIS
 bash kssm/check_training_status.sh
 
 # Remote (Mac Studio)
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && bash kssm/check_training_status.sh"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && bash kssm/check_training_status.sh"
 ```
 
 ---
@@ -366,10 +366,10 @@ chmod +x kssm/monitor_training.py
 ssh tony_studio@192.168.1.195 "echo 'Connection OK'"
 
 # Check remote log
-ssh tony_studio@192.168.1.195 "ls -la ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "ls -la ~/liminal-k-ssm/results/kssm_v3/training.log"
 
 # Find logs manually
-ssh tony_studio@192.168.1.195 "find ~/phase-mamba-consciousness -name 'training.log' -type f"
+ssh tony_studio@192.168.1.195 "find ~/liminal-k-ssm -name 'training.log' -type f"
 ```
 
 ### Monitor Showing Old Data

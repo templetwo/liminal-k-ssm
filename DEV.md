@@ -297,7 +297,7 @@ grad_norm: 2.890
 
 **Training Command**:
 ```bash
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && \
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && \
   nohup python3 kssm/train_kssm_v3.py --max-steps 10000 --resume \
   > results/kssm_v3/nohup_restart.out 2>&1 &"
 ```
@@ -355,7 +355,7 @@ python3 kssm/monitor_training.py
 ./kssm/monitor_remote.sh
 
 # Or manual SSH
-ssh tony_studio@192.168.1.195 "tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -f ~/liminal-k-ssm/results/kssm_v3/training.log"
 ```
 
 **Dashboard Features**:

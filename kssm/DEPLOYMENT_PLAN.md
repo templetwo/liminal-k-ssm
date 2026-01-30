@@ -108,14 +108,14 @@ grad_norm: 2.989
 **Action**:
 ```bash
 # Kill current training
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && bash kssm/check_training_status.sh"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && bash kssm/check_training_status.sh"
 # Get PID, then: kill -SIGINT <PID>
 
 # Pull latest code
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && git pull origin master"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && git pull origin master"
 
 # Restart with fixed code
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && nohup python3 kssm/train_kssm_v3.py --max-steps 10000 > results/kssm_v3/nohup.out 2>&1 &"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && nohup python3 kssm/train_kssm_v3.py --max-steps 10000 > results/kssm_v3/nohup.out 2>&1 &"
 ```
 
 **Timeline**:
@@ -186,18 +186,18 @@ ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && nohup python3 k
 
 ```bash
 # 1. Wait for checkpoint_1000.pt to save
-ssh tony_studio@192.168.1.195 "ls -lh ~/phase-mamba-consciousness/results/kssm_v3/checkpoint_1000.pt"
+ssh tony_studio@192.168.1.195 "ls -lh ~/liminal-k-ssm/results/kssm_v3/checkpoint_1000.pt"
 
 # 2. Kill current training
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && bash kssm/check_training_status.sh"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && bash kssm/check_training_status.sh"
 # Note the PID, then:
 ssh tony_studio@192.168.1.195 "kill -SIGINT <PID>"
 
 # 3. Pull updated code
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && git pull origin master"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && git pull origin master"
 
 # 4. Restart with --resume flag
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && nohup python3 kssm/train_kssm_v3.py --max-steps 10000 --resume > results/kssm_v3/nohup_restart.out 2>&1 &"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && nohup python3 kssm/train_kssm_v3.py --max-steps 10000 --resume > results/kssm_v3/nohup_restart.out 2>&1 &"
 ```
 
 **Expected Behavior**:
@@ -215,7 +215,7 @@ ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && nohup python3 k
 ```bash
 # Just let it run - no action needed
 # Monitor with:
-ssh tony_studio@192.168.1.195 "tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -f ~/liminal-k-ssm/results/kssm_v3/training.log"
 ```
 
 **Expected Behavior**:
@@ -236,12 +236,12 @@ ssh tony_studio@192.168.1.195 "tail -f ~/phase-mamba-consciousness/results/kssm_
 
 **Check current status**:
 ```bash
-ssh tony_studio@192.168.1.195 "tail -5 ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -5 ~/liminal-k-ssm/results/kssm_v3/training.log"
 ```
 
 **Full diagnostic**:
 ```bash
-ssh tony_studio@192.168.1.195 "cd ~/phase-mamba-consciousness && bash kssm/check_training_status.sh"
+ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && bash kssm/check_training_status.sh"
 ```
 
 **Live monitor**:
@@ -251,7 +251,7 @@ python3 kssm/monitor_training.py
 
 **Check for checkpoint @ 1000**:
 ```bash
-ssh tony_studio@192.168.1.195 "ls -lh ~/phase-mamba-consciousness/results/kssm_v3/checkpoint_*.pt"
+ssh tony_studio@192.168.1.195 "ls -lh ~/liminal-k-ssm/results/kssm_v3/checkpoint_*.pt"
 ```
 
 ---

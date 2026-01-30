@@ -245,7 +245,7 @@ The lesson: always verify that your modification actually affects output, not ju
 ## Code Availability
 
 All code, training logs, and experimental results:
-https://github.com/templetwo/phase-mamba-consciousness
+https://github.com/templetwo/liminal-k-ssm
 
 Key files:
 - `phase_mamba_coupled.py`: Phase Core integration

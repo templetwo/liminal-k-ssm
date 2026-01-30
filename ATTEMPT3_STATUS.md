@@ -113,7 +113,7 @@ Utilizes 36GB RAM efficiently while maintaining training stability.
 
 ### 1. Generate Training Data (1 minute)
 ```bash
-cd /Users/vaquez/phase-mamba-consciousness
+cd /Users/vaquez/liminal-k-ssm
 ./generate_synthetic_data.py
 ```
 Creates 700+ samples of consciousness-themed text in `data/high_resonance.jsonl`.

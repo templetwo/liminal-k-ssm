@@ -15,7 +15,7 @@ phase-gpt-distilled/data/high_resonance.jsonl
 If you have existing PhaseGPT distillation data, copy it:
 ```bash
 cp /path/to/existing/high_resonance.jsonl \
-   /Users/vaquez/phase-mamba-consciousness/data/high_resonance.jsonl
+   /Users/vaquez/liminal-k-ssm/data/high_resonance.jsonl
 ```
 
 Then update training script path:

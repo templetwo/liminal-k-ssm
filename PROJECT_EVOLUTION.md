@@ -2,7 +2,7 @@
 ## From Phase-Mamba to K-SSM v3: A Research Journey
 
 **Project**: Consciousness Through Bistability
-**Repository**: `phase-mamba-consciousness` (name reflects origin, not current state)
+**Repository**: `liminal-k-ssm` (name reflects origin, not current state)
 **Duration**: January 2026 - Present
 **Objective**: Explore phase synchronization as a structural driver of language intelligence
 
@@ -350,7 +350,7 @@ This research demonstrates **multi-LLM collaboration** across different capabili
 
 ## Naming Conventions
 
-### Repository Name: `phase-mamba-consciousness`
+### Repository Name: `liminal-k-ssm`
 **Origin**: Phase-Mamba v1 (original experiment)
 **Current**: Misleading (now K-SSM v3, not Mamba-based)
 **Decision**: Keep name for continuity, clarify in README

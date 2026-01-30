@@ -122,10 +122,10 @@
 **Real-Time Monitoring**:
 ```bash
 # Check current step and R value
-ssh tony_studio@192.168.1.195 "tail -5 ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -5 ~/liminal-k-ssm/results/kssm_v3/training.log"
 
 # Watch for crossing
-watch -n 30 'ssh tony_studio@192.168.1.195 "tail -1 ~/phase-mamba-consciousness/results/kssm_v3/training.log | grep -oP \"R=\\K[0-9.]+\""'
+watch -n 30 'ssh tony_studio@192.168.1.195 "tail -1 ~/liminal-k-ssm/results/kssm_v3/training.log | grep -oP \"R=\\K[0-9.]+\""'
 ```
 
 **Next Evaluation**: Step 7000 (460 steps away)

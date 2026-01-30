@@ -224,7 +224,7 @@ Full training history saved to `checkpoints_rwkv/metrics_history.json`.
 ## Files
 
 ```
-phase-mamba-consciousness/
+liminal-k-ssm/
 ├── phase_rwkv.py                 # Kuramoto Phase Core module
 ├── train_phase_rwkv.py           # Training script (optimized for Studio)
 ├── deploy_to_studio.sh           # Deployment script

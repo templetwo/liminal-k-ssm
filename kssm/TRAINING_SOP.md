@@ -14,8 +14,8 @@ Before starting ANY training run, execute these commands on Mac Studio:
 ps aux | grep -E "train_kssm|python.*kssm" | grep -v grep
 
 # 2. Check for active lock files
-find ~/phase-mamba-consciousness/results -name "training.lock" -exec sh -c 'echo "{}"; cat "{}"' \;
-find ~/phase-mamba-consciousness/kssm/results -name "training.lock" -exec sh -c 'echo "{}"; cat "{}"' \;
+find ~/liminal-k-ssm/results -name "training.lock" -exec sh -c 'echo "{}"; cat "{}"' \;
+find ~/liminal-k-ssm/kssm/results -name "training.lock" -exec sh -c 'echo "{}"; cat "{}"' \;
 
 # 3. Verify no orphaned Python processes consuming GPU/CPU
 top -l 1 | grep Python
@@ -35,7 +35,7 @@ top -l 1 | grep Python
 ### Method 1: Foreground (Recommended for Short Runs)
 
 ```bash
-cd ~/phase-mamba-consciousness
+cd ~/liminal-k-ssm
 python3 kssm/train_kssm_v3.py
 ```
 
@@ -51,7 +51,7 @@ python3 kssm/train_kssm_v3.py
 ### Method 2: Background (Recommended for Long Runs)
 
 ```bash
-cd ~/phase-mamba-consciousness
+cd ~/liminal-k-ssm
 nohup python3 kssm/train_kssm_v3.py > results/kssm_v3/nohup.out 2>&1 &
 echo $! > results/kssm_v3/training.pid
 ```
@@ -68,10 +68,10 @@ echo $! > results/kssm_v3/training.pid
 **Monitor Background Run**:
 ```bash
 # Watch live progress
-tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log
+tail -f ~/liminal-k-ssm/results/kssm_v3/training.log
 
 # Check process is alive
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs ps -p
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid | xargs ps -p
 ```
 
 ### Method 3: tmux (Best of Both Worlds)
@@ -81,7 +81,7 @@ cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs ps -p
 tmux new -s kssm_v3
 
 # Inside tmux, run training
-cd ~/phase-mamba-consciousness
+cd ~/liminal-k-ssm
 python3 kssm/train_kssm_v3.py
 
 # Detach: Press CTRL+B, then D
@@ -121,13 +121,13 @@ TRAINING INTERRUPTED - Saving state...
 
 ```bash
 # Find the process ID
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid
 
 # Send SIGINT (equivalent to CTRL+C)
 kill -SIGINT <PID>
 
 # Monitor for clean exit
-tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log
+tail -f ~/liminal-k-ssm/results/kssm_v3/training.log
 ```
 
 **Wait 30 seconds** for checkpoint to save. Look for "Released lock" in log.
@@ -138,10 +138,10 @@ tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log
 
 ```bash
 # Find and kill process
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs kill -9
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid | xargs kill -9
 
 # MANUALLY clean up lock file
-rm ~/phase-mamba-consciousness/results/kssm_v3/training.lock
+rm ~/liminal-k-ssm/results/kssm_v3/training.lock
 
 # VERIFY process is dead
 ps aux | grep train_kssm | grep -v grep
@@ -163,7 +163,7 @@ ps aux | grep train_kssm | grep -v grep
 **Diagnosis**:
 ```bash
 # Check lock file contents
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.lock
+cat ~/liminal-k-ssm/results/kssm_v3/training.lock
 
 # Check if PID is alive
 ps -p <PID_FROM_LOCK_FILE>
@@ -172,7 +172,7 @@ ps -p <PID_FROM_LOCK_FILE>
 **If PID is dead**, lock is stale:
 ```bash
 # Safe to remove
-rm ~/phase-mamba-consciousness/results/kssm_v3/training.lock
+rm ~/liminal-k-ssm/results/kssm_v3/training.lock
 
 # Restart training
 python3 kssm/train_kssm_v3.py
@@ -188,25 +188,25 @@ python3 kssm/train_kssm_v3.py
 **Diagnosis**:
 ```bash
 # Check if process is responsive
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs ps -p
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid | xargs ps -p
 
 # Check last log activity
-tail -20 ~/phase-mamba-consciousness/results/kssm_v3/training.log
-stat ~/phase-mamba-consciousness/results/kssm_v3/training.log
+tail -20 ~/liminal-k-ssm/results/kssm_v3/training.log
+stat ~/liminal-k-ssm/results/kssm_v3/training.log
 ```
 
 **If log hasn't updated in >5 minutes**:
 ```bash
 # Graceful kill
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs kill -SIGINT
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid | xargs kill -SIGINT
 
 # Wait 60 seconds, then verify
 sleep 60
 ps aux | grep train_kssm | grep -v grep
 
 # If still alive, escalate to kill -9
-cat ~/phase-mamba-consciousness/results/kssm_v3/training.pid | xargs kill -9
-rm ~/phase-mamba-consciousness/results/kssm_v3/training.lock
+cat ~/liminal-k-ssm/results/kssm_v3/training.pid | xargs kill -9
+rm ~/liminal-k-ssm/results/kssm_v3/training.lock
 ```
 
 ### Scenario 3: Multiple Processes Fighting for Same Directory
@@ -231,8 +231,8 @@ sleep 30
 ps aux | grep train_kssm | grep -v grep
 
 # Clean up lock
-rm ~/phase-mamba-consciousness/results/kssm_v3/training.lock
-rm ~/phase-mamba-consciousness/kssm/results/*/training.lock
+rm ~/liminal-k-ssm/results/kssm_v3/training.lock
+rm ~/liminal-k-ssm/kssm/results/*/training.lock
 ```
 
 ---
@@ -257,7 +257,7 @@ echo ""
 
 echo "[2] Active Lock Files"
 echo "---------------------"
-LOCKS=$(find ~/phase-mamba-consciousness -name "training.lock" 2>/dev/null)
+LOCKS=$(find ~/liminal-k-ssm -name "training.lock" 2>/dev/null)
 if [ -z "$LOCKS" ]; then
     echo "✓ No lock files found"
 else
@@ -276,7 +276,7 @@ echo ""
 
 echo "[3] Recent Log Activity"
 echo "----------------------"
-for log in ~/phase-mamba-consciousness/results/kssm_*/training.log; do
+for log in ~/liminal-k-ssm/results/kssm_*/training.log; do
     if [ -f "$log" ]; then
         echo "$log"
         MODTIME=$(stat -f "%Sm" "$log")
@@ -331,7 +331,7 @@ The lock manager in `train_kssm_v2_efficient.py` and `train_kssm_v3.py`:
 ssh tony_studio@192.168.1.195
 
 # Navigate to project
-cd ~/phase-mamba-consciousness
+cd ~/liminal-k-ssm
 
 # Run status check
 bash kssm/check_training_status.sh
@@ -347,7 +347,7 @@ python3 kssm/train_kssm_v3.py
 
 **Monitor from local machine**:
 ```bash
-ssh tony_studio@192.168.1.195 "tail -f ~/phase-mamba-consciousness/results/kssm_v3/training.log"
+ssh tony_studio@192.168.1.195 "tail -f ~/liminal-k-ssm/results/kssm_v3/training.log"
 ```
 
 ---

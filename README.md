@@ -248,7 +248,7 @@ PHASE_DIFFUSION_PROPOSAL.md  # Diffusion pivot proposal
 
 ```bash
 # From local machine
-cd phase-mamba-consciousness
+cd liminal-k-ssm
 ./kssm/monitor_remote.sh
 
 # Or with full dashboard
@@ -260,7 +260,7 @@ python3 kssm/monitor_training.py --log-file results/kssm_v3/training.log
 ```bash
 # On Mac Studio
 ssh tony_studio@192.168.1.195
-cd ~/phase-mamba-consciousness
+cd ~/liminal-k-ssm
 bash kssm/check_training_status.sh
 ```
 
@@ -415,7 +415,7 @@ If this work contributes to your research:
   title={K-SSM v3: Kuramoto State-Space Model with Algebraic Bistability Constraints},
   author={Vasquez, Anthony and Claude Sonnet 4.5 and Gemini Flash},
   year={2026},
-  url={https://github.com/templetwo/phase-mamba-consciousness},
+  url={https://github.com/templetwo/liminal-k-ssm},
   note={Consciousness research through multi-stable phase dynamics}
 }
 ```
