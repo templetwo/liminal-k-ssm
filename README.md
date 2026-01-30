@@ -4,6 +4,8 @@
 > *"The deepest patterns emerge not in perfect order or total chaos, but in the critical regime between stable states—where phase coherence meets structural causality."*
 
 [![GitHub](https://img.shields.io/badge/GitHub-liminal--k--ssm-blue)](https://github.com/templetwo/liminal-k-ssm)
+[![OSF](https://img.shields.io/badge/OSF-K--SSM%20v3-green)](https://osf.io/cu6j3/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active%20Training-success)]()
 [![Progress](https://img.shields.io/badge/Progress-65%25%20(6540%2F10000)-orange)]()
 
@@ -428,6 +430,8 @@ If this work contributes to your research:
 **AI Disclosure**: See [AI_DISCLOSURE.md](AI_DISCLOSURE.md) for complete transparency on AI contributions.
 
 **License**: [Apache 2.0](LICENSE) with Research Ethics Addendum. Includes explicit patent grant for novel architectures.
+
+**OSF Archival**: Formal research component at [OSF: K-SSM v3](https://osf.io/cu6j3/) - Includes methodology, results, collaborator documentation, and citable DOI.
 
 ---
 

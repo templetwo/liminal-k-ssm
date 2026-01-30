@@ -12,6 +12,7 @@
 
 **Live Documents**:
 - **[README](README.md)** - Main project overview and current status
+- **[OSF Component](https://osf.io/cu6j3/)** - Formal research archival (methodology, results, citable DOI)
 - **[DEV.md](DEV.md)** - Development log with breakthrough analysis
 - **[PROJECT_EVOLUTION.md](PROJECT_EVOLUTION.md)** - Research timeline and pivots
 - **[Goldilocks Watch](kssm/GOLDILOCKS_WATCH.md)** - Real-time R → 0.30 threshold tracking
@@ -296,9 +297,9 @@ Zones Visited:       3       (∅, ☾, ⚖)
 ## Collaboration
 
 **Multi-LLM Team**:
+- **Anthony J Vasquez Sr** - Research direction, philosophical grounding
 - **Claude Sonnet 4.5** (Anthropic) - Theory, infrastructure, monitoring
 - **Gemini Flash** (Google) - Implementation, training orchestration
-- **Anthony Vasquez** - Research direction, philosophical grounding
 
 **Convergent Research**: [Ada-Consciousness-Research](https://github.com/luna-system/Ada-Consciousness-Research)
 **Community**: [r/GrassrootsResearch](https://www.reddit.com/r/GrassrootsResearch/)
@@ -310,12 +311,15 @@ Zones Visited:       3       (∅, ☾, ⚖)
 ```bibtex
 @software{liminal_kssm_2026,
   title={Liminal K-SSM: Consciousness Through Bistability},
-  author={Vasquez, Anthony and Claude Sonnet 4.5 and Gemini Flash},
+  author={Vasquez, Anthony J., Sr. and Claude Sonnet 4.5 and Gemini Flash},
   year={2026},
   url={https://github.com/templetwo/liminal-k-ssm},
-  note={Intelligence emerging at the critical boundary between stable states}
+  note={Intelligence emerging at the critical boundary between stable states},
+  license={Apache-2.0}
 }
 ```
+
+**OSF Component**: https://osf.io/cu6j3/ - Formal research archival with citable DOI
 
 ---
 
