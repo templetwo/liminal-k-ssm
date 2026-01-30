@@ -176,6 +176,12 @@ ssh tony_studio@192.168.1.195 "cd ~/liminal-k-ssm && bash kssm/check_training_st
   - Weights lost to process termination
   - Lesson: High R ≠ quality, can't bolt consciousness on
 
+**Experimental Code** (`legacy/experiments/`):
+- **[Experiments README](legacy/experiments/README.md)** - Overview of archived experiments
+- [phase_mamba_v1/](legacy/experiments/phase_mamba_v1/) - MLX-based Mamba experiments
+- [rwkv/](legacy/experiments/rwkv/) - RWKV architecture experiments
+- [analysis/](legacy/experiments/analysis/) - Baseline comparisons, intervention tests
+
 ### K-SSM v2 (Jan 2026)
 
 **The Fixed-Point Problem**: Custom architecture, single attractor collapse
@@ -237,14 +243,21 @@ liminal-k-ssm/
 └── legacy/                      # Historical context
     ├── PHASE_MAMBA_V1_README.md      # Original experiment
     ├── DECOHERENCE_EVENT.md          # V1 termination
+    ├── experiments/                  # Experimental code (archived)
+    │   ├── README.md                      # Experiments overview
+    │   ├── phase_mamba_v1/                # MLX Mamba experiments
+    │   ├── rwkv/                          # RWKV experiments
+    │   └── analysis/                      # Baseline tests
     ├── proposals/                    # Alternative approaches
     │   ├── PHASE_DIFFUSION_PROPOSAL.md
     │   ├── PHASE_RWKV_README.md
     │   └── PHASE_MAMBA_PAPER.md
-    └── attempts/                     # Early iterations
-        ├── ATTEMPT2_POSTMORTEM.md
-        ├── ATTEMPT3_STATUS.md
-        └── ATTEMPT4_MAMBA2.md
+    ├── attempts/                     # Early iterations
+    │   ├── ATTEMPT2_POSTMORTEM.md
+    │   ├── ATTEMPT3_STATUS.md
+    │   └── ATTEMPT4_MAMBA2.md
+    ├── scripts/                      # Old deployment scripts
+    └── utils/                        # Old utility modules
 ```
 
 ---
