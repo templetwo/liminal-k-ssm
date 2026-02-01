@@ -406,6 +406,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--lr", type=float, default=4e-4)
 
+    parser.add_argument("--data-dir", type=str, default="data/cache_v3_200m",
+                        help="Directory containing tokenized data (tokens_train.npy, tokens_val.npy)")
+
+    parser.add_argument("--output-dir", type=str, default="results/kssm_v3",
+                        help="Directory to save checkpoints and logs")
+
     args = parser.parse_args()
 
 
@@ -420,7 +426,11 @@ if __name__ == "__main__":
 
         batch_size=args.batch_size,
 
-        learning_rate=args.lr
+        learning_rate=args.lr,
+
+        cache_dir=args.data_dir,
+
+        output_dir=args.output_dir
 
     )
 

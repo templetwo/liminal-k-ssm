@@ -19,7 +19,7 @@ echo ""
 
 echo "[2] Active Lock Files"
 echo "---------------------"
-LOCKS=$(find ~/phase-mamba-consciousness -name "training.lock" 2>/dev/null)
+LOCKS=$(find ~/liminal-k-ssm -name "training.lock" 2>/dev/null)
 if [ -z "$LOCKS" ]; then
     echo "✓ No lock files found"
 else
@@ -43,7 +43,7 @@ echo ""
 
 echo "[3] Recent Log Activity"
 echo "----------------------"
-for log in ~/phase-mamba-consciousness/results/kssm_*/training.log ~/phase-mamba-consciousness/kssm/results/*/training.log; do
+for log in ~/liminal-k-ssm/results/kssm_*/training.log ~/liminal-k-ssm/kssm/results/*/training.log; do
     if [ -f "$log" ]; then
         echo "File: $log"
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -60,7 +60,7 @@ done
 
 echo "[4] Saved PIDs"
 echo "-------------"
-for pid_file in ~/phase-mamba-consciousness/results/kssm_*/training.pid ~/phase-mamba-consciousness/kssm/results/*/training.pid; do
+for pid_file in ~/liminal-k-ssm/results/kssm_*/training.pid ~/liminal-k-ssm/kssm/results/*/training.pid; do
     if [ -f "$pid_file" ]; then
         echo "File: $pid_file"
         PID=$(cat "$pid_file" 2>/dev/null)
@@ -86,7 +86,7 @@ LIVE_LOCKS=0
 STALE_LOCKS=0
 LIVE_PROCS=0
 
-for lock in $(find ~/phase-mamba-consciousness -name "training.lock" 2>/dev/null); do
+for lock in $(find ~/liminal-k-ssm -name "training.lock" 2>/dev/null); do
     PID=$(cat "$lock" 2>/dev/null)
     if ps -p "$PID" > /dev/null 2>&1; then
         LIVE_LOCKS=$((LIVE_LOCKS + 1))
@@ -103,7 +103,7 @@ elif [ $LIVE_LOCKS -eq 1 ] && [ $LIVE_PROCS -eq 1 ]; then
     echo "✓ TRAINING ACTIVE: One training run in progress (normal)"
 elif [ $STALE_LOCKS -gt 0 ]; then
     echo "⚠️  STALE LOCKS DETECTED: Run cleanup before starting new training"
-    echo "   Cleanup: find ~/phase-mamba-consciousness -name 'training.lock' -exec rm {} \;"
+    echo "   Cleanup: find ~/liminal-k-ssm -name 'training.lock' -exec rm {} \;"
 elif [ $LIVE_PROCS -gt 1 ]; then
     echo "🔴 MULTIPLE PROCESSES DETECTED: Emergency cleanup required"
     echo "   See TRAINING_SOP.md Section: Emergency Cleanup"
