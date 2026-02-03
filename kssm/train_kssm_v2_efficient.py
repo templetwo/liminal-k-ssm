@@ -306,14 +306,20 @@ class CheckpointManager:
         checkpoint = torch.load(ckpt_path, map_location=device)
 
         model.load_state_dict(checkpoint['model_state'])
-        optimizer.load_state_dict(checkpoint['optimizer_state'])
-        scheduler.load_state_dict(checkpoint['scheduler_state'])
 
-        step = checkpoint['step']
+        # Handle model-only checkpoints (for transfer learning)
+        if 'optimizer_state' in checkpoint:
+            optimizer.load_state_dict(checkpoint['optimizer_state'])
+            scheduler.load_state_dict(checkpoint['scheduler_state'])
+            step = checkpoint['step']
+            print(f"  Resumed from step {step} (full state)")
+        else:
+            step = checkpoint.get('step', 0)
+            print(f"  Loaded model weights from step {step} (fresh optimizer for transfer learning)")
+            step = 0  # Reset step counter for new training run
+
         history = checkpoint.get('history', [])
         best_val_loss = checkpoint.get('best_val_loss', float('inf'))
-
-        print(f"  Resumed from step {step}")
         return step, history, best_val_loss
 
 
