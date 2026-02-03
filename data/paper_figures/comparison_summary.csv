@@ -1,0 +1,7 @@
+metric,bistable,monostable,difference,percent_diff
+val_R,0.4908,0.4043,-0.0865,-17.6%
+val_loss,8.7621,10.9295,2.1674,+24.7%
+val_u,0.1032,-0.9745,-1.0777,negative_attractor
+final_step,15000,15000,0,0%
+train_tokens,120195974,120195974,0,0%
+parameters,46246722,46246722,0,0%

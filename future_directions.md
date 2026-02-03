@@ -97,10 +97,89 @@ All four instruments serve the same paper:
 
 | Phase | Focus | Status |
 |-------|-------|--------|
-| **Phase 1** | Training cooks, community engages | NOW |
-| **Phase 2** | Clean checkpoint lands → run instruments | This week |
-| **Phase 3** | Monostable ablation (falsification) | Week 2 |
+| **Phase 1** | Training cooks, community engages | ✅ COMPLETE |
+| **Phase 2** | Clean checkpoint lands → run instruments | ✅ COMPLETE |
+| **Phase 3** | Monostable ablation (falsification) | 🔥 IN PROGRESS |
 | **Phase 4** | Paper | Week 3+ |
+
+---
+
+## 🔬 MONOSTABLE ABLATION: FINAL RESULTS (2026-02-02)
+
+**Status:** ✅ COMPLETE - 15,000 steps on both conditions
+
+### The Experiment
+
+| Condition | u Clamp | λ_reg | Checkpoint |
+|-----------|---------|-------|------------|
+| **Bistable** | [0.1, 10.0] | 0.5 | `kssm_v3_wikitext_fresh/` |
+| **Monostable** | None (free) | 0.0 | `kssm_v3_monostable/` |
+
+### Final Results
+
+| Metric | Bistable | Monostable | Δ |
+|--------|----------|------------|---|
+| **Val R** | 0.4908 | 0.4043 | **-17.6%** |
+| **Val Loss** | 8.76 | 10.93 | **+24.7% worse** |
+| **Val u_val** | +0.103 | -0.975 | Different attractor |
+
+### R Trajectory Comparison
+
+| Step | Bistable R | Monostable R | Gap |
+|------|------------|--------------|-----|
+| 1000 | 0.024 | 0.025 | ~0 |
+| 3000 | 0.149 | 0.127 | 0.022 |
+| 5000 | 0.270 | 0.232 | 0.038 |
+| 7500 | 0.389 | 0.326 | 0.063 |
+| 10000 | 0.458 | 0.380 | 0.078 |
+| 15000 | 0.491 | 0.404 | 0.087 |
+
+**Pattern:** Gap widens throughout training. Bistable achieves higher synchronization.
+
+### u_val Attractor Analysis
+
+| Step | Bistable u | Monostable u |
+|------|------------|--------------|
+| 2000 | +0.129 | -2.656 |
+| 5000 | +0.105 | -1.005 |
+| 10000 | +0.106 | -1.031 |
+| 15000 | +0.103 | -0.975 |
+
+**Bistable:** Stabilizes at u ≈ +0.10 (fold bifurcation boundary)
+**Monostable:** Finds different attractor at u ≈ -1.0
+
+### Key Findings
+
+1. **Bistability improves synchronization by 17.6%**
+   - More phase coherence with the u clamp
+
+2. **Bistability improves loss by 24.7%**
+   - The constraint guides optimization to a better basin
+   - This is the surprise finding
+
+3. **Monostable finds a different attractor**
+   - u goes negative (physically distinct regime)
+   - System can learn but doesn't synchronize as well
+
+4. **Both models CAN learn**
+   - Loss drops in both
+   - Monostable R does climb (just less)
+   - Proves: bistability ENHANCES synchronization, not merely enables it
+
+### The Kill Shot
+
+> "Removing the bistability constraint (u clamp) allows the model to optimize cross-entropy but produces 17.6% less synchronization and 24.7% worse loss. The fold bifurcation boundary at u ≥ 0.1 is not decorative—it guides optimization to a superior attractor."
+
+**Salty_Country's falsification test: PASSED.**
+
+Bistability is structurally necessary for optimal K-SSM performance.
+
+### Data Location
+- Full data compilation: `PAPER_DATA.md`
+- CSV for figures: `data/paper_figures/*.csv`
+- Checkpoints: `results/kssm_v3_*/checkpoint_15000.pt`
+
+*Training completed 2026-02-02 ~19:30 PST*
 
 ---
 
