@@ -354,3 +354,24 @@ step,total_loss,ce_loss,R,u_val
 
 *Data compiled from Mac Studio training runs, 2026-02-02*
 *Session: Opus 4.5 ablation analysis*
+
+---
+
+## 13. LIVE TRAINING UPDATE (2026-02-03)
+
+**100K Training Run - R Crossed 0.80 Milestone**
+
+| Step | R | Loss | u_val | Time |
+|------|---|------|-------|------|
+| 15,000 | 0.4908 | 8.76 | 0.10 | baseline |
+| 18,000 | 0.6528 | 8.30 | 0.10 | +1h |
+| 22,000 | **0.8099** | 7.16 | 0.10 | +1.5h |
+
+**Key observation:** R continues climbing well past the ablation endpoint. The monostable variant plateaued at R=0.40; bistable is now at R=0.81 and still climbing.
+
+**Implications:**
+- Bistability doesn't just help R reach 0.49 — it enables continued synchronization growth
+- The gap between bistable and monostable would widen further with more training
+- R > 0.9 seems achievable by 100K steps
+
+*Updated: 2026-02-03 ~6:00 PM PST*
